@@ -1,6 +1,12 @@
-import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
-
+import {
+  Column,
+  Entity,
+  Index,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Role } from '../types/userRole.type';
+import { Booking } from 'src/booking/entities/booking.entity';
 
 @Index('email', ['email'], { unique: true })
 @Entity({
@@ -18,4 +24,10 @@ export class User {
 
   @Column({ type: 'enum', enum: Role, default: Role.User })
   role: Role;
+
+  @Column({ type: 'int', default: 1000000 })
+  point: number;
+
+  @OneToMany(() => Booking, (booking) => booking.user)
+  bookings: Booking[];
 }

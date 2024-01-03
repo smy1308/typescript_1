@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Booking } from 'src/booking/entities/booking.entity';
 
 @Entity({
   name: 'performances',
@@ -34,4 +35,7 @@ export class Performance {
 
   @Column({ type: 'int', nullable: false })
   price: number;
+
+  @OneToMany(() => Booking, (booking) => booking.performance)
+  bookings: Booking[];
 }
